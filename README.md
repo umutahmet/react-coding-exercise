@@ -107,15 +107,14 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+### `yarn start:prod`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Runs the app in production mode. Intended for use on the server, but should be used locally when you need to test in
+production mode. Executes the built assets in the `build/` folder.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+*Note*: There is a safety check in case you have never run `yarn build` when you run `yarn start:prod`, but it doesn’t
+check whether those files are up to date. So make sure you’ve run `yarn build` yourself before starting the server in
+production mode.
 
 ## Learn More
 
