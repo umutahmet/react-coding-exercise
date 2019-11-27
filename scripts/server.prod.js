@@ -9,9 +9,6 @@ const url = require('url')
 const express = require('express')
 const compression = require('compression')
 const morgan = require('morgan')
-const session = require('express-session')
-const MemoryStore = require('memorystore')(session)
-const ms = require('ms')
 const createServer = require('http').createServer
 
 let clientStats, serverStats
@@ -123,16 +120,6 @@ module.exports = function (port, host) {
         throw error
     }
   })
-
-  app.use(session({
-    store: new MemoryStore({
-      checkPeriod: ms(process.env.SESSION_PRUNE_PERIOD || '24h')
-    }),
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false }
-  }))
 
   // Support Gzip
   app.use(compression())

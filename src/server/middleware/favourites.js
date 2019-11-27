@@ -1,5 +1,20 @@
 import express from 'express'
+import session from 'express-session'
+import createMemoryStore from 'memorystore'
+import ms from 'ms'
+
 const router = express.Router()
+const MemoryStore = createMemoryStore(session)
+
+router.use(session({
+  store: new MemoryStore({
+    checkPeriod: ms(process.env.SESSION_PRUNE_PERIOD || '24h')
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }
+}))
 
 router.get('/', (req, res) => {
   res.json(req.session.favourites || [])
