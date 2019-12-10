@@ -1,7 +1,7 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { useSelector } from 'react-redux'
-import { getEvents, isEventsReady } from '../selectors'
+import { getEvents, getEventsCount, isEventsReady } from '../selectors'
 import { ReactComponent as TitleIcon } from '../icons/vivid-angle-top-left.svg'
 import theme from '../style/theme'
 import Event from './Event'
@@ -9,13 +9,14 @@ import Event from './Event'
 const Events = () => {
   const classes = useStyles()
   const ready = useSelector(isEventsReady)
+  const count = useSelector(getEventsCount)
   const events = useSelector(getEvents)
 
   return (
     <div className={classes.container}>
       <h3 className={classes.title}>
         <TitleIcon className={classes.titleIcon} />
-        Results
+        {ready ? `Results: ${count} events found` : 'Results'}
       </h3>
       {!ready && <p>Loading...</p>}
       {ready && (
