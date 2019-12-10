@@ -5,6 +5,7 @@ import { getEvents, getEventsCount, isEventsReady } from '../selectors'
 import { ReactComponent as TitleIcon } from '../icons/vivid-angle-top-left.svg'
 import theme from '../style/theme'
 import Event from './Event'
+import Loader from './Loader'
 
 const Events = () => {
   const classes = useStyles()
@@ -18,7 +19,7 @@ const Events = () => {
         <TitleIcon className={classes.titleIcon} />
         {ready ? `Results: ${count} events found` : 'Results'}
       </h3>
-      {!ready && <p>Loading...</p>}
+      {!ready && <Loader />}
       {ready && (
         <div className={classes.tilesWrapper}>
           <div className={classes.tiles}>
