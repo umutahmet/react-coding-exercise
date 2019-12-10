@@ -29,7 +29,7 @@ const ShareButtons = ({ children, className, id, url, title }) => {
   const dispatch = useDispatch()
   const toggleFavourited = useCallback(() => {
     dispatch(toggleFavouriteActionCreator(id))
-  }, [id])
+  }, [dispatch, id])
 
   const social = useMemo(() => [{
     ...popupWindowProps(`https://facebook.com/sharer.php?u=${encodeURIComponent(url)}&t=${encodeURIComponent(title)}`),
