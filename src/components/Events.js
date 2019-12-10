@@ -1,7 +1,7 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { useSelector } from 'react-redux'
-import { getEvents, getEventsCount, isEventsReady } from '../selectors'
+import { getEvents, getEventsCount, getEventsError, isEventsReady } from '../selectors'
 import { ReactComponent as TitleIcon } from '../icons/vivid-angle-top-left.svg'
 import theme from '../style/theme'
 import Event from './Event'
@@ -12,6 +12,22 @@ const Events = () => {
   const ready = useSelector(isEventsReady)
   const count = useSelector(getEventsCount)
   const events = useSelector(getEvents)
+  const error = useSelector(getEventsError)
+
+  if (error) {
+    return (
+      <div className={classes.errorContainer}>
+        <div>
+          <h1 className={classes.errorTitle}>Whoops! <br />Something went wrong.</h1>
+          <div className={classes.errorText}>
+            <p><strong>Looks like we couldn't find any events.</strong></p>
+            <p>Our engineers have been notified, but in the mean time please take a look at the full events listing.</p>
+            <a href='/' className={classes.button}>See all events</a>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={classes.container}>
@@ -63,7 +79,6 @@ const useStyles = createUseStyles({
       justifyContent: 'flex-start'
     }
   },
-
   tile: {
     margin: [0, 'auto', theme.gutter],
     maxWidth: theme.maxTileWidth,
@@ -74,6 +89,39 @@ const useStyles = createUseStyles({
     },
     '@media (min-width: 1200px)': {
       width: `calc(${100 / 3}% - ${theme.gutter}px)`
+    }
+  },
+  errorContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxWidth: 500,
+    height: 400,
+    margin: '0 auto',
+    textAlign: 'center',
+    paddingLeft: theme.gutter,
+    paddingRight: theme.gutter
+  },
+  errorTitle: {
+    marginBottom: theme.gutter * 2
+  },
+  errorText: {
+    fontSize: 16
+  },
+  button: {
+    display: 'inline-block',
+    fontFamily: theme.fonts.headings,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    fontSize: 20,
+    color: theme.colors.white,
+    backgroundColor: theme.colors.primary,
+    padding: [5, 28],
+    marginTop: theme.gutter * 2,
+    '&:hover': {
+      color: theme.colors.white,
+      backgroundColor: theme.colors.secondary,
+      transition: 'background-color 0.3s ease-in'
     }
   }
 }, { name: 'Events' })
